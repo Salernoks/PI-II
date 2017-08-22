@@ -1,9 +1,15 @@
 package SwingApp02;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -32,17 +38,38 @@ public class Main {
        JPanel panel = new JPanel();
        tela.getContentPane().add (panel);
        
+       // Criar CheckBox.
+       JCheckBox checkbox = new JCheckBox("Clique aqui");
+       tela.add(checkbox);
+       
+       
+       ItemListener itemlistener = new ItemListener(){
+
+           public void itemStateChanged(ItemEvent e) {
+               if(e.getStateChange()== ItemEvent.SELECTED);
+               System.out.println("Selecionado");
+           }
+
+       };
+       checkbox.addItemListener(itemlistener);
        // Conteúdo da tela.
        JLabel label = new JLabel("Login: ");
        panel.add(label);
        
-       // Entrada de dados.
-       JTextField field = new JTextField(10);
+       // Entrada de dados (texto).
+       final JTextField field = new JTextField(10);
        panel.add(field);
        
        // Adissionar botão.
        JButton button = new JButton("Next");
        panel.add(button);
+       
+       // Adicionar ação para o botão.
+       button.addActionListener(new ActionListener(){
+           public void actionPerformed(ActionEvent e) {
+               JOptionPane.showMessageDialog(tela,"Nome: "+field.getText());
+           }
+       });
        
        // Tela automatica.
        tela.pack();
